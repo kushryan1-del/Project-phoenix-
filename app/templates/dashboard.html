@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+<div class="hero"><div><span class="eyebrow">ONE PROJECT RECORD · ONE SOURCE OF TRUTH</span><h1>RHI Operations Dashboard</h1><p>Customers, leads, active work and pricing from one Phoenix database.</p></div><div class="hero-badge">Craftsmanship<br><b>you can trust.</b></div></div>
+<div class="kpis">
+  <div class="kpi"><span>Customers</span><strong>{{ customer_count }}</strong></div>
+  <div class="kpi"><span>Open Leads</span><strong>{{ open_leads }}</strong></div>
+  <div class="kpi"><span>Active Projects</span><strong>{{ active_projects }}</strong></div>
+  <div class="kpi"><span>Lead Pipeline</span><strong>${{ '%.0f'|format(pipeline) }}</strong></div>
+  <div class="kpi"><span>Current Contract Value</span><strong>${{ '%.0f'|format(contracted) }}</strong></div>
+</div>
+<div class="grid two">
+  <section class="card"><div class="card-head"><h2>Follow-ups Due</h2><a href="/leads">Open leads →</a></div>
+    {% if due_followups %}<div class="list">{% for x in due_followups %}<div class="list-row"><div><b>{{ x.lead_id }}</b><span>{{ x.project_type }} · {{ x.priority }}</span></div><time>{{ x.next_follow_up_date }}</time></div>{% endfor %}</div>{% else %}<div class="empty">No overdue follow-ups.</div>{% endif %}
+  </section>
+  <section class="card"><div class="card-head"><h2>Recent Projects</h2><a href="/projects">All projects →</a></div>
+    {% if recent_projects %}<div class="list">{% for p in recent_projects %}<a class="list-row linkrow" href="/projects/{{ p.project_id }}"><div><b>{{ p.project_name }}</b><span>{{ p.first_name }} {{ p.last_name }} · {{ p.project_status }}</span></div><span>→</span></a>{% endfor %}</div>{% else %}<div class="empty">Create your first project to start the Phoenix workflow.</div>{% endif %}
+  </section>
+</div>
+<div class="card rule-card"><h2>Pricing Standard Active</h2><p><b>No separate material markup.</b> Taxable material sales tax is added to direct job cost, then all direct job costs are divided by <code>1 − target gross margin</code>. Standard target: 30%; use 35–40% for smaller, complicated, uncertain, or higher-risk work.</p></div>
+{% endblock %}

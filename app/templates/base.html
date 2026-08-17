@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173b57">
+  <title>{% block title %}Project Phoenix{% endblock %} · RHI</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="/assets/rhi-logo.png" alt="RHI logo">
+      <div><strong>PROJECT PHOENIX</strong><span>Remarkable Home Improvement</span></div>
+    </div>
+    <nav>
+      <a class="{{ 'active' if nav == '/' else '' }}" href="/">Dashboard</a>
+      <a class="{{ 'active' if nav.startswith('/customers') else '' }}" href="/customers">Customers</a>
+      <a class="{{ 'active' if nav.startswith('/leads') else '' }}" href="/leads">Leads</a>
+      <a class="{{ 'active' if nav.startswith('/projects') else '' }}" href="/projects">Projects</a>
+      <a class="{{ 'active' if nav.startswith('/estimates') else '' }}" href="/estimates">Estimates</a>
+      <span class="disabled">Schedule · next</span>
+      <span class="disabled">Field / Daily Jobs · next</span>
+      <span class="disabled">Documents · next</span>
+      <span class="disabled">Reports · next</span>
+    </nav>
+    <div class="side-foot">PA151285 · Fully Insured<br>{{ settings.tagline }}</div>
+  </aside>
+  <main>
+    <header class="topbar"><button id="menuButton" aria-label="Menu">☰</button><div><b>{% block page_title %}Project Phoenix{% endblock %}</b><small>v0.1 Foundation</small></div></header>
+    <section class="content">{% block content %}{% endblock %}</section>
+  </main>
+</div>
+<script>document.getElementById('menuButton').addEventListener('click',()=>document.body.classList.toggle('menu-open'));</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
